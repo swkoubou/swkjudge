@@ -147,4 +147,9 @@ class Controller_User extends Controller_Template
 
 	}
 
+	public function action_addmaster()
+	{
+		$auth = Auth::instance();
+		$auth->create_user("igaritest", "igaiga");
+	}
 }

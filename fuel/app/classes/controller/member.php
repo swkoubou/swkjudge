@@ -1,8 +1,6 @@
 <?php
 class Controller_Member extends Controller_Template
-{
-	public $template = 'member/template';
-	
+{	
 	public function before(){
 		parent::before();
 				
@@ -22,18 +20,26 @@ class Controller_Member extends Controller_Template
 	{
 		Auth::check() and Response::redirect('member');
 		
+		$data = array();
+		$auth = Auth::instance();
+		
 		if(Input::post('username') and Input::post('password'))
 		{
 			$username = Input::post('username');
 			$password = Input::post('password');
 			$auth = Auth::instance();
 			
-			if($auth->login($username, $password)){
+			if($auth->login($username, $password))
+			{
 				Response::redirect('member');
+			}
+			else
+			{
+				$data['error'] = true;
 			}
 		}
 		
-		$this->template->content = View::forge('member/loginform');
+		$this->template->content = View::forge('member/loginform', $data);
 	}
 	
 	public function action_logout()

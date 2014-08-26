@@ -18,9 +18,15 @@
 			<?php echo Form::password('password','', array('class' => 'form-control')); ?>
 		</div>
 	</div>
+	<div class="form-group">
+		<?php echo Form::label('パスワード', 'password', array('class' => 'col-sm-1 control-label')); ?>
+		<div class="col-sm-4">
+			<?php echo Form::password('password','', array('class' => 'form-control')); ?>
+		</div>
+	</div>
 	<div class="form-actions">
 		<div class="col-sm-offset-1 col-sm-1">
-			<?php echo Form::submit('submit', 'ログイン', array('class' => 'btn btn-primary')); ?>
+			<?php echo Form::submit('submit', '登録', array('class' => 'btn btn-primary')); ?>
 		</div>
 	</div>
 </fieldset>
