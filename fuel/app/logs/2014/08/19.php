@@ -13,3 +13,4 @@ WARNING - 2014-08-19 15:14:37 --> Fuel\Core\Fuel::init - The configured locale j
 WARNING - 2014-08-19 15:20:13 --> Fuel\Core\Fuel::init - The configured locale ja_JP is not installed on your system.
 WARNING - 2014-08-19 15:25:45 --> Fuel\Core\Fuel::init - The configured locale ja_JP is not installed on your system.
 WARNING - 2014-08-19 15:29:06 --> Fuel\Core\Fuel::init - The configured locale ja_JP is not installed on your system.
+WARNING - 2014-08-19 15:30:12 --> Fuel\Core\Fuel::init - The configured locale ja_JP is not installed on your system.
