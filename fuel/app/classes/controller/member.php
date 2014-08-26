@@ -4,7 +4,7 @@ class Controller_Member extends Controller_Template
 	public function before(){
 		parent::before();
 				
-		if(!Auth::check() and Request::active()->action != 'login')
+		if(!Auth::check() and Request::active()->action != 'login' and Request::active()->action != 'adduser')
 		{
 			Response::redirect('member/login');
 		}
@@ -16,7 +16,50 @@ class Controller_Member extends Controller_Template
 		$this->template->content = View::forge('member/index');
 	}
 	
-	public function action_login()
+	public function action_adduser()
+	{
+		Auth::check() and Response::redirect('member');
+		
+		$data = array();
+		$auth = Auth::instance();
+		
+		if(Input::post('username') and Input::post('password') and Input::post('password2'))
+		{
+			$username = Input::post('username');
+			$password = Input::post('password');
+			$password2 = Input::post('password2');
+			$auth = Auth::instance();
+			
+			if(mb_strlen($username) < 4){
+				$data['error'] = "ユーザ名は4文字以上にして下さい";
+			}else if(16 < mb_strlen($username)){
+				$data['error'] = "ユーザ名は16文字以下にして下さい";
+			}else if(mb_strlen($password) < 8){
+				$data['error'] = "パスワードは8文字以上にして下さい";
+			}else if(32 < mb_strlen($password)){
+				$data['error'] = "ユーザ名は32文字以下にして下さい";
+			}else if($password != $password2){
+				$data['error'] = "入力したパスワードとパスワード確認文字列が違っています";
+			}else if(count(Model_User::find('all',array('where' => array( array('username', $username))))) != 0){
+				$data['error'] = "既に同じユーザ名が存在します";
+			}else{
+				$mail = "notmail".count(Model_User::find('all'))."@notmail.com";
+				$auth = Auth::instance();
+				if($auth->create_user($username, $password, $mail)){
+					$data['success'] = "ユーザの追加に成功しました";
+				}else{
+					$data['error'] = "ユーザの追加に失敗しました";
+				}
+			}
+		}
+		if(!isset($data['success'])){
+			$this->template->content = View::forge('member/adduser', $data);
+		}else{
+			Response::redirect('member/login/adduser');
+		}
+	}
+	
+	public function action_login($action = "")
 	{
 		Auth::check() and Response::redirect('member');
 		
@@ -37,6 +80,9 @@ class Controller_Member extends Controller_Template
 			{
 				$data['error'] = true;
 			}
+		}
+		if($action == "adduser"){
+			$data['success'] = "ユーザの追加に成功しました";
 		}
 		
 		$this->template->content = View::forge('member/loginform', $data);
