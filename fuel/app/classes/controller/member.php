@@ -12,8 +12,12 @@ class Controller_Member extends Controller_Template
 	
 	public function action_index()
 	{
-		$this->template->username = Auth::get_screen_name();
-		$this->template->content = View::forge('member/index');
+		$data['username'] = Auth::get_screen_name();
+		$data['level'] = Lib_Utility::get_level($data['username']);
+		$data['exp'] = Model_User::get_exp($data['username']);
+		$data['solvecount'] = Model_Submit::get_acceptedcount($data['username']);
+		$data['contestcount'] = Model_Contestuser::get_contest_registercount($data['username']);
+		$this->template->content = View::forge('member/index', $data);
 	}
 	
 	public function action_adduser()

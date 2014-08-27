@@ -43,4 +43,14 @@ class Model_User extends Model
 		return $val;
 	}
 
+	/**
+	 * ユーザの経験値を取得する関数
+	 * 
+	 * @param string $username ユーザ名
+	 * @return int ユーザの経験値
+	 */
+	public static function get_exp($username){
+		$res = Model_User::find('first', array('where' => array(array('username',$username))));
+		return $res->get('exp');
+	}
 }

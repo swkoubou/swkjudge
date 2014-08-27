@@ -43,4 +43,20 @@ class Model_Submit extends Model
 		return $val;
 	}
 
+	/**
+	 * ユーザが問題を正解した数を返す関数
+	 * 
+	 * @param string $username ユーザ名
+	 * @return int 問題正解数
+	 */
+	public static function get_acceptedcount($username){
+		$res = count(Model_Submit::find('all', array(
+		    'where' => array(
+			array('username' => $username),
+			array('result' => "accepted")
+		    )
+		)));
+		
+		return $res;
+	}
 }

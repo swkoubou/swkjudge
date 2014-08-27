@@ -15,6 +15,7 @@ return array (
         6 => '007_create_genres',
         7 => '008_create_problems',
         8 => '009_create_submits',
+        9 => '010_create_contestusers',
       ),
     ),
     'module' => 

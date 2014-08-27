@@ -15,7 +15,11 @@
 		<?php include APPPATH.'/views/includes/header.php'; ?>
 		<div class="container">
 			<div class="row">
-				<?php echo $content; ?>
+				<div class="col-sm-12">
+					<div class="well">
+						<?php echo $content; ?>
+					</div>
+				</div>
 			</div>
 		</div>
 		
